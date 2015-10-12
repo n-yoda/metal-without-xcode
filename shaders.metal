@@ -1,9 +1,4 @@
-#include <metal_stdlib>
-#include <metal_texture>
-#include <metal_matrix>
-#include <metal_geometric>
-#include <metal_math>
-#include <metal_graphics>
+#include <simd/simd.h>
 #include "common.h"
 
 using namespace metal;
@@ -13,17 +8,17 @@ struct VertexInput {
     half4 color [[attribute(VertexAttributeColor)]];
 };
 
-typedef struct {
+struct ShaderInOut {
     float4 position [[position]];
     half4  color;
-} ShaderInOut;
+};
 
 vertex ShaderInOut vert(VertexInput in [[stage_in]],
-						constant FrameUniforms& frameUniforms [[buffer(FrameUniformBuffer)]]) {
+	   constant FrameUniforms& uniforms [[buffer(FrameUniformBuffer)]]) {
     ShaderInOut out;
     float4 pos4 = float4(in.position, 1.0);
-    out.position = frameUniforms.projectionViewModel * pos4;
-    out.color = in.color;
+    out.position = uniforms.projectionViewModel * pos4;
+    out.color = in.color / 255.0;
     return out;
 }
 
