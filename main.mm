@@ -8,41 +8,41 @@
 @end
 
 int main () {
-	@autoreleasepool {
-		// Application.
-		[NSApplication sharedApplication];
-		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
-		[NSApp activateIgnoringOtherApps:YES];
+    @autoreleasepool {
+        // Application.
+        [NSApplication sharedApplication];
+        [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+        [NSApp activateIgnoringOtherApps:YES];
 
-		// Menu.
-		NSMenu* bar = [NSMenu new];
-		NSMenuItem * barItem = [NSMenuItem new];
-		NSMenu* menu = [NSMenu new];
-		NSMenuItem* quit = [[NSMenuItem alloc]
-							   initWithTitle:@"Quit"
-							   action:@selector(terminate:)
-							   keyEquivalent:@"q"];
-	    [bar addItem:barItem];
-		[barItem setSubmenu:menu];
-		[menu addItem:quit];
-		NSApp.mainMenu = bar;
+        // Menu.
+        NSMenu* bar = [NSMenu new];
+        NSMenuItem * barItem = [NSMenuItem new];
+        NSMenu* menu = [NSMenu new];
+        NSMenuItem* quit = [[NSMenuItem alloc]
+                               initWithTitle:@"Quit"
+                               action:@selector(terminate:)
+                               keyEquivalent:@"q"];
+        [bar addItem:barItem];
+        [barItem setSubmenu:menu];
+        [menu addItem:quit];
+        NSApp.mainMenu = bar;
 
-		// Window.
-		NSRect frame = NSMakeRect(0, 0, 256, 256);
-		NSWindow* window = [[NSWindow alloc]
-							   initWithContentRect:frame styleMask:NSTitledWindowMask
-							   backing:NSBackingStoreBuffered defer:NO];
-		[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
-		window.title = [[NSProcessInfo processInfo] processName];
-		[window makeKeyAndOrderFront:nil];
+        // Window.
+        NSRect frame = NSMakeRect(0, 0, 256, 256);
+        NSWindow* window = [[NSWindow alloc]
+                               initWithContentRect:frame styleMask:NSTitledWindowMask
+                               backing:NSBackingStoreBuffered defer:NO];
+        [window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
+        window.title = [[NSProcessInfo processInfo] processName];
+        [window makeKeyAndOrderFront:nil];
 
-		// Custom MTKView.
-		HelloMetalView* view = [[HelloMetalView alloc] initWithFrame:frame];
-		window.contentView = view;
+        // Custom MTKView.
+        HelloMetalView* view = [[HelloMetalView alloc] initWithFrame:frame];
+        window.contentView = view;
 
-		// Run.
-		[NSApp run];
-	}
+        // Run.
+        [NSApp run];
+    }
     return 0;
 }
 
@@ -69,12 +69,12 @@ constexpr int uniformBufferCount = 3;
 }
 
 - (id)initWithFrame:(CGRect)inFrame {
-	id<MTLDevice> device = MTLCreateSystemDefaultDevice();
-	self = [super initWithFrame:inFrame device:device];
-	if (self) {
-		[self setup];
-	}
-	return self;
+    id<MTLDevice> device = MTLCreateSystemDefaultDevice();
+    self = [super initWithFrame:inFrame device:device];
+    if (self) {
+        [self setup];
+    }
+    return self;
 }
 
 - (void)setup {
@@ -84,11 +84,11 @@ constexpr int uniformBufferCount = 3;
 
     // Load shaders.
     NSError *error = nil;
-	_library = [self.device newLibraryWithFile: @"shaders.metallib" error:&error];
-	if (!_library) {
-		NSLog(@"Failed to load library. error %@", error);
-		exit(0);
-	}
+    _library = [self.device newLibraryWithFile: @"shaders.metallib" error:&error];
+    if (!_library) {
+        NSLog(@"Failed to load library. error %@", error);
+        exit(0);
+    }
     id <MTLFunction> vertFunc = [_library newFunctionWithName:@"vert"];
     id <MTLFunction> fragFunc = [_library newFunctionWithName:@"frag"];
 
@@ -137,7 +137,7 @@ constexpr int uniformBufferCount = 3;
 
     // Create uniform buffers.
     for (int i = 0; i < uniformBufferCount; i++) {
-        _uniformBuffers[i] = [self.device newBufferWithLength:sizeof(FrameUniforms)
+        _uniformBuffers[i] = [self.devicenewBufferWithLength:sizeof(FrameUniforms)
                                                      options:MTLResourceCPUCacheModeWriteCombined];
     }
     frame = 0;
