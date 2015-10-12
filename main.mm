@@ -137,8 +137,8 @@ constexpr int uniformBufferCount = 3;
 
     // Create uniform buffers.
     for (int i = 0; i < uniformBufferCount; i++) {
-        _uniformBuffers[i] = [self.devicenewBufferWithLength:sizeof(FrameUniforms)
-                                                     options:MTLResourceCPUCacheModeWriteCombined];
+        _uniformBuffers[i] = [self.device newBufferWithLength:sizeof(FrameUniforms)
+                                          options:MTLResourceCPUCacheModeWriteCombined];
     }
     frame = 0;
 
