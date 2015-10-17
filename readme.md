@@ -1,6 +1,6 @@
 # Metal Programming without Xcode
 A simple example of Metal written in Objective-C++ which can be compiled in command-line.
-
+![result.png](result.png)
 ## How to pre-compile Metal shaders
 ### Export PATH for Metal compiler
 	export PATH="$PATH:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/usr/bin
